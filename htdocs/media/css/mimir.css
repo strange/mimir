@@ -1,0 +1,155 @@
+html,
+body,
+div,
+p,
+li,
+ol,
+h1,
+h2 {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+body {
+    font: 62.5% 'lucida grande', sans-serif;
+    background: #FFF;
+    color: #000;
+}
+
+#logo {
+    padding: 20px;
+    margin: 0 auto 1.5em auto;
+    font-size: 1.1em;
+    background: #F4F4F4 url(../images/background.png) center center repeat-x;
+}
+
+#logo span {
+    display: block;
+    height: 60px;
+    background: transparent url(../images/mimir.png) center center no-repeat;
+    text-indent: -10000px;
+}
+
+/* General Content -------------------------------------------------------- */
+
+#content {
+    margin: 3.0em;
+}
+
+/* Headings */
+
+h2 {
+    margin: 1.2em 0;
+    font-size: 1.1em;
+}
+
+h2 a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #469295;
+}
+
+h2 a span {
+    font-weight: normal;
+    color: #AAA;
+}
+
+/* Textblocks */
+
+p,
+li {
+    font-size: 1.1em;
+}
+
+/* Lists ------------------------------------------------------------------ */
+
+ol {
+    padding: 0 0 0 3.0em;
+    margin: 0 0 1.6em;
+    color: #AAA;
+}
+
+ol li {
+    position: relative;
+    margin: 0;
+    line-height: 1.5em;
+    border-bottom: 1px solid #EEE;
+}
+
+ol li.hn {
+    padding: 0 8.0em 0 0;
+}
+
+ol li.attention {
+    border-color: #CCC;
+}
+
+ol li a {
+    display: inline-block;
+    padding: 0.6em 0;
+    text-decoration: none;
+    font-weight: bold;
+    color: #444;
+}
+
+ol li a:visited {
+    color: #AAA;
+}
+
+/* New Additions */
+
+ol li.new-additions {
+    border-color: #e2dbc5;
+}
+
+ol li.new-additions > a {
+    background: #FFC;
+}
+
+ol li.new-additions > a:visited {
+    color: #888;
+}
+
+/* Comments */
+
+.comments {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    line-height: 1.5em;
+}
+
+.comments p {
+    display: none;
+}
+
+.comments a {
+    display: block;
+    width: 16px;
+    height: 16px;
+    color: #999;
+    background: url(../images/icons/comment.png) center center no-repeat;
+    text-indent: -10000px;
+}
+
+/* Read More/Less */
+
+.more {
+    text-align: center;
+}
+
+.more a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #AAA;
+}
+
+.more a:after {
+    content: " -";
+}
+
+.more a:before {
+    content: "- ";
+}

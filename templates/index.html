@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Mimir</title>
+    <link rel="stylesheet" href="/media/css/mimir.css" type="text/css" media="screen" />
+    <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/media/script/mimir.js"></script>
+</head>
+<body>
+    <h1 id="logo"><span>Mimir</span></h1>
+    <div id="content">
+    <% [ feed(Item) || Item <- Data ] %>
+    </div>
+</body>
+</html>
+
+<%@feed({feed,{name, Name},{link,Link},{items,Items}})%>
+<h2>
+    <a href="<% Link %>" rel="nofollow"><% Name %> <span><% Link %></span></a>
+</h2>
+<ol> 
+    <% [ items(Name, Item) || Item <- Items ] %>
+</ol>
+
+<%@ items("Hacker News" ++ _, {item, {title, Title}, {link, Link}, {description, Description}}) %>
+<li class="hn">
+    <a href="<% mochiweb_html:escape(Link) %>" rel="nofollow"><% mochiweb_html:escape(Title) %></a>
+    <div class="comments"><% Description %></div>
+</li>
+
+<%@ items(_, {item, {title, Title}, {link, Link}, {description, Description}}) %>
+<li>
+    <a href="<% mochiweb_html:escape(Link) %>" rel="nofollow"><% mochiweb_html:escape(Title) %></a>
+</li>
