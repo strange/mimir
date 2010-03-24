@@ -9,6 +9,6 @@ start_link() ->
 init([]) ->
     Processes = [
         {cache, {cache, start, []}, permanent, brutal_kill, worker, [cache]},
-        {mimir, {mimir, start, []}, permanent, brutal_kill, worker, dynamic}
+        {mimir_web, {mimir_web, start, []}, permanent, brutal_kill, worker, dynamic}
     ],
     {ok, {{one_for_one, 5, 60}, Processes}}.
