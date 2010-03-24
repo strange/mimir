@@ -18,16 +18,11 @@ body {
 }
 
 #logo {
-    padding: 20px;
-    margin: 0 auto 1.5em auto;
-    font-size: 1.1em;
-    background: #F4F4F4 url(../images/background.png) center center repeat-x;
-}
-
-#logo span {
-    display: block;
+    width: 200px;
     height: 60px;
-    background: transparent url(../images/mimir.png) center center no-repeat;
+    margin: 4.5em auto 4.5em auto;
+    font-size: 1.1em;
+    background: #FFF url(../images/mimir.png) center center no-repeat;
     text-indent: -10000px;
 }
 
@@ -147,9 +142,11 @@ ol li.new-additions > a:visited {
 }
 
 .more a:after {
-    content: " -";
+    content: " —";
+    color: #DDD;
 }
 
 .more a:before {
-    content: "- ";
+    content: "— ";
+    color: #DDD;
 }
