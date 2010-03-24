@@ -7,7 +7,7 @@
 init(_Args) -> {ok, dict:new()}.
 
 start() -> gen_server:start_link({local, ?MODULE}, ?MODULE, [],
-                                 [{timeout, 60 * 1000}]).
+                                 [{timeout, 240 * 1000}]).
 
 stop() -> gen_server:cast(?MODULE, stop).
 

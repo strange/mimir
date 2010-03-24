@@ -8,27 +8,23 @@
 -define(PORT, 8080).
 -define(DOCROOT, "./htdocs").
 -define(FEEDS, [
-    {"Hacker News (popular)", "http://news.ycombinator.com", "http://news.ycombinator.com/rss", 3600},
-    {"Hacker News (new)", "http://news.ycombinator.com/newest", "http://www.omnatten.se/feed.xml", 1800},
-    {"Proggit", "http://programming.reddit.com/", "http://www.reddit.com/r/programming/.rss", 7200},
-    {"Lambda the Ultimate", "http://lambda-the-ultimate.org/", "http://lambda-the-ultimate.org/rss.xml", 7200},
-    {"Ajaxian", "http://www.ajaxian.com/", "http://ajaxian.com/index.xml", 7200},
+    % {"Hacker News (popular)", "http://news.ycombinator.com", "http://news.ycombinator.com/rss", 3600},
+    % {"Hacker News (new)", "http://news.ycombinator.com/newest", "http://www.omnatten.se/feed.xml", 1800},
+    % {"Proggit", "http://programming.reddit.com/", "http://www.reddit.com/r/programming/.rss", 7200},
+    % {"Lambda the Ultimate", "http://lambda-the-ultimate.org/", "http://lambda-the-ultimate.org/rss.xml", 7200},
+    % {"Ajaxian", "http://www.ajaxian.com/", "http://ajaxian.com/index.xml", 7200},
     {"Slashdot", "http://slashdot.org/","http://rss.slashdot.org/Slashdot/slashdot", 7200}
 ]).
 
 start() ->
     application:start(inets),
-    cache:start(),
     ok = erltl:compile("templates/index.html"),
     mochiweb_http:start([{name, ?MODULE}, {port, ?PORT},
-                         {loop, fun(R) -> loop(R, ?DOCROOT) end}]),
-    ok.
+                         {loop, fun(R) -> loop(R, ?DOCROOT) end}]).
 
 stop() ->
     application:stop(inets),
-    mochiweb_http:stop(?MODULE),
-    cache:stop(),
-    ok.
+    mochiweb_http:stop(?MODULE).
 
 loop(Request, DocRoot) ->
     case Request:get(method) of
