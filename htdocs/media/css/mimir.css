@@ -30,7 +30,9 @@ body {
 /* General Content -------------------------------------------------------- */
 
 #content {
-    margin: 3.0em;
+    padding: 3.0em;
+    max-width: 90.0em;
+    margin: 0 auto;
 }
 
 /* Headings */
