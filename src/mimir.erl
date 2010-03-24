@@ -3,9 +3,7 @@
 
 start() ->
     application:start(crypto),
-    erlang:display("here"),
     application:start(inets),
-    erlang:display("here"),
     application:start(mimir).
 
 stop() ->
