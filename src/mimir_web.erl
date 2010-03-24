@@ -7,31 +7,24 @@
 -define(HOST, "localhost").
 -define(PORT, 8080).
 -define(DOCROOT, "./htdocs").
--define(FEEDS, [
-    % {"Hacker News (popular)", "http://news.ycombinator.com", "http://news.ycombinator.com/rss", 3600},
-    % {"Hacker News (new)", "http://news.ycombinator.com/newest", "http://www.omnatten.se/feed.xml", 1800},
-    % {"Proggit", "http://programming.reddit.com/", "http://www.reddit.com/r/programming/.rss", 7200},
-    % {"Lambda the Ultimate", "http://lambda-the-ultimate.org/", "http://lambda-the-ultimate.org/rss.xml", 7200},
-    % {"Ajaxian", "http://www.ajaxian.com/", "http://ajaxian.com/index.xml", 7200},
-    {"Slashdot", "http://slashdot.org/","http://rss.slashdot.org/Slashdot/slashdot", 7200}
-]).
 
 start() ->
     application:start(inets),
     ok = erltl:compile("templates/index.html"),
+    {ok, FeedList} = file:consult("app.cfg"),
     mochiweb_http:start([{name, ?MODULE}, {port, ?PORT},
-                         {loop, fun(R) -> loop(R, ?DOCROOT) end}]).
+                         {loop, fun(R) -> loop(R, ?DOCROOT, FeedList) end}]).
 
 stop() ->
     application:stop(inets),
     mochiweb_http:stop(?MODULE).
 
-loop(Request, DocRoot) ->
+loop(Request, DocRoot, FeedList) ->
     case Request:get(method) of
         'GET' ->
             case Request:get(path) of
                 "/" ->
-                    Feeds = feeds(?FEEDS),
+                    Feeds = feeds(FeedList),
                     Body = index:render(Feeds),
                     Request:ok({"text/html; charset=utf-8", Body});
                 "/" ++ Path ->
