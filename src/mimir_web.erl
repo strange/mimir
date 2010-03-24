@@ -9,14 +9,12 @@
 -define(DOCROOT, "./htdocs").
 
 start() ->
-    application:start(inets),
     ok = erltl:compile("templates/index.html"),
     {ok, FeedList} = file:consult("app.cfg"),
     mochiweb_http:start([{name, ?MODULE}, {port, ?PORT},
                          {loop, fun(R) -> loop(R, ?DOCROOT, FeedList) end}]).
 
 stop() ->
-    application:stop(inets),
     mochiweb_http:stop(?MODULE).
 
 loop(Request, DocRoot, FeedList) ->
