@@ -6,15 +6,14 @@
 
 init(_Args) -> {ok, dict:new()}.
 
-start() -> gen_server:start_link({local, ?MODULE}, ?MODULE, [],
-                                 [{timeout, 240 * 1000}]).
+start() -> gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 stop() -> gen_server:cast(?MODULE, stop).
 
 terminate(_Info, _State) -> ok.
 
 get(Key, TTL, Fun) when is_function(Fun) ->
-    gen_server:call(?MODULE, {get, Key, TTL, Fun});
+    gen_server:call(?MODULE, {get, Key, TTL, Fun}, 10000);
 get(Key, TTL, Data) ->
     get(Key, TTL, fun() -> Data end).
 
@@ -38,8 +37,8 @@ handle_call(_Msg, _From, State) ->
 handle_cast(stop, State) -> {stop, normal, State};
 handle_cast(_, State) -> {noreply, State}.
 
-handle_info (_Info, State) ->
-    { noreply, State }.
+handle_info (Info, State) ->
+    {noreply, State}.
 
 code_change (_OldVsn, State, _Extra) ->
-    { ok, State }.
+    {ok, State}.

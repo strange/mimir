@@ -43,8 +43,12 @@ feeds([H|T], Feeds) ->
 items(Url) ->
     case fetch(Url) of
         {ok, Body} ->
-            {Doc, _Misc} = xmerl_scan:string(xmerl_ucs:to_utf8(Body)),
-            Items = xmerl_xpath:string("//item", Doc),
+            case catch xmerl_scan:string(xmerl_ucs:to_utf8(Body)) of
+                {'EXIT', _} ->
+                    Items = [];
+                {Doc, _Misc} ->
+                    Items = xmerl_xpath:string("//item", Doc)
+            end,
             Fun = fun(I) ->
                 Title = extract_text(I, "title"),
                 Link = extract_text(I, "link"),
@@ -61,9 +65,11 @@ extract_text(Item, ElementName) ->
     lists:flatten([X#xmlText.value || X <- Nodes]).
 
 fetch(Url) ->
-    case http:request(get, {Url, [{"User-Agent", ?USER_AGENT}]}, [], []) of
+    case http:request(get, {Url, [{"User-Agent", ?USER_AGENT}]}, [{timeout, 10000}], []) of
         {ok, {_Status, _Headers, Body}} ->
             {ok, Body};
+        {error, timeout} ->
+            scrapper;
         {error, _} ->
             error
     end.
