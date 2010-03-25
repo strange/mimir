@@ -131,6 +131,7 @@ ol li.new-additions > a:visited {
     color: #999;
     background: url(../images/icons/comment.png) center center no-repeat;
     text-indent: -10000px;
+    padding: 0.6em 0;
 }
 
 /* Read More/Less */
