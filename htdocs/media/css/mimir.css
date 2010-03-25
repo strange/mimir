@@ -98,10 +98,6 @@ ol li a:visited {
 
 /* New Additions */
 
-ol li.new-additions {
-    border-color: #e2dbc5;
-}
-
 ol li.new-additions > a {
     background: #FFC;
 }
